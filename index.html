@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ecos do Cataclismo — RPG One-shot</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header class="topbar">
+        <h1>Ecos do Cataclismo</h1>
+        <p class="subtitle">One-shot narrativo com IA como Mestre</p>
+      </header>
+
+      <main id="menu-screen" class="screen active">
+        <section class="menu-panel">
+          <h2>Menu Inicial</h2>
+          <div class="menu-grid">
+            <button data-action="newGame">Novo Jogo</button>
+            <button data-action="loadGame">Carregar Jogo</button>
+            <button data-action="createCharacter">Criar Personagem</button>
+            <button data-action="myCharacters">Meus Personagens</button>
+            <button data-action="settings">Configurações</button>
+            <button data-action="worldLore">Mundo & História</button>
+            <button data-action="credits">Créditos</button>
+          </div>
+        </section>
+      </main>
+
+      <main id="character-screen" class="screen">
+        <section class="panel">
+          <h2>Criação de Personagem</h2>
+          <form id="character-form">
+            <div class="form-grid">
+              <label>Nome<input name="nome" required /></label>
+              <label>Sobrenome<input name="sobrenome" required /></label>
+              <label>Idade<input type="number" name="idade" min="12" max="99" value="24" /></label>
+              <label>Altura e Peso<input name="alturaPeso" placeholder="Ex: 1,78m / 74kg" required /></label>
+              <label>Raça
+                <select name="raca" required></select>
+              </label>
+            </div>
+
+            <fieldset>
+              <legend>História pessoal (origem)</legend>
+              <textarea name="historiaPessoal" rows="4" placeholder="Conte em poucas linhas o passado do seu personagem..."></textarea>
+            </fieldset>
+
+            <fieldset>
+              <legend>Atributos (15 pontos extras, mínimo 1)</legend>
+              <p id="points-left">Pontos restantes: 15</p>
+              <div id="attributes-grid" class="attributes-grid"></div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Perícias escolhidas</legend>
+              <p class="helper">Cada atributo gera pontos de perícia = atributo × 2.</p>
+              <div id="skills-container"></div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Proficiência inicial (gratuita)</legend>
+              <select id="proficiency-select" required></select>
+            </fieldset>
+
+            <div class="actions">
+              <button type="button" data-nav="menu">Voltar</button>
+              <button type="submit">Salvar Personagem</button>
+            </div>
+          </form>
+        </section>
+      </main>
+
+      <main id="game-screen" class="screen">
+        <section class="hud">
+          <div><strong>Vida:</strong> <span id="hud-hp">14/14</span></div>
+          <div><strong>Energia:</strong> <span id="hud-sp">14/14</span></div>
+          <div><strong>Ouro:</strong> <span id="hud-gold">0</span></div>
+          <div><strong>Status:</strong> <span id="hud-status">Estável</span></div>
+          <div><strong>Reputação:</strong> <span id="hud-reputation">Neutra</span></div>
+        </section>
+
+        <section class="game-layout">
+          <article class="narrative-panel">
+            <h2>Narrativa</h2>
+            <div id="narrative-log" class="scrollbox"></div>
+            <form id="action-form" class="action-box">
+              <input id="player-action" placeholder="Descreva livremente sua ação..." autocomplete="off" />
+              <button type="submit">Enviar</button>
+            </form>
+          </article>
+
+          <aside class="tabs-panel">
+            <nav class="tabs-nav">
+              <button class="tab-btn active" data-tab="ficha">Ficha</button>
+              <button class="tab-btn" data-tab="inventario">Inventário</button>
+              <button class="tab-btn" data-tab="missoes">Missões</button>
+              <button class="tab-btn" data-tab="eventos">Registro</button>
+              <button class="tab-btn" data-tab="relacoes">Relações NPCs</button>
+              <button class="tab-btn" data-tab="historia">História</button>
+            </nav>
+            <div id="tab-content" class="scrollbox"></div>
+            <div class="actions"><button data-nav="menu">Salvar e sair</button></div>
+          </aside>
+        </section>
+      </main>
+
+      <main id="modal-screen" class="screen">
+        <section class="panel">
+          <h2 id="modal-title"></h2>
+          <div id="modal-content" class="scrollbox"></div>
+          <div class="actions"><button data-nav="menu">Voltar</button></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
